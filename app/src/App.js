@@ -1,25 +1,20 @@
+import { Drizzle, generateStore } from "drizzle";
+import { DrizzleContext } from "drizzle-react";
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ProofOfExistence from "./contracts/ProofOfExistence.json";
+import ReactSpinner from './ReactSpinner.js';
 
-function App() {
+
+const options = { contracts: [ProofOfExistence] };
+const drizzleStore = generateStore(options);
+const drizzle = new Drizzle(options, drizzleStore);
+
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DrizzleContext.Provider drizzle={drizzle}>
+      <ReactSpinner></ReactSpinner>
+    </DrizzleContext.Provider>
   );
 }
 

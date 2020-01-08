@@ -1,3 +1,10 @@
+Todo:
+Prompt Connect to MetaMask
+Use drizzle to hook up app
+Account switch
+
+
+Goals:
 readme with explanation and install
 truffle project
 commented contract

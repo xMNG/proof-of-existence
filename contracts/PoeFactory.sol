@@ -8,7 +8,8 @@ contract PoeFactory is Pausable {
 
     function createContract() external {
         require(userContracts[msg.sender] == address(0), "user already has a contract!");
-        // second check to make sure contract didn't self destruct
+        // TODO: second check to make sure contract didn't self destruct
+
         ProofOfExistence newContract = new ProofOfExistence();
         userContracts[msg.sender] = address(newContract);
     }

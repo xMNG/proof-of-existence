@@ -1,19 +1,16 @@
 pragma solidity ^0.5.0;
 
-import "./Pausable.sol";
 
 // TODO: factory function!
 
-contract ProofOfExistence is Pausable {
+contract ProofOfExistence {
 
+    address public owner; // TODO: openZeppelin owner role
     /*
-    * @dev each User has a name and their data in a mapping, plus total length
+    * @dev these two state variables hold the data count and store the data structs
     */
-    struct User {
-        string name;
-        mapping(uint => Data) data;
-        uint length;
-    }
+    mapping(uint => Data) DataMap;
+    uint public dataCount;
 
     /*
     * @dev each Data has a description, hashStr, and stamp time
@@ -25,29 +22,13 @@ contract ProofOfExistence is Pausable {
         uint timeStamp;
     }
 
-    mapping(address => User) public users;
-
-    /*
-    * @dev logs adding a user to the users
-    */
-    event LogAddUser(address indexed _address, string name);
-    
     /*
     * @dev logs adding an IPFS hash to a User's account
     */
-    event LogAddIPFSHash();
+    event LogAddIPFSHash(string indexed description, string hashStr, string indexed tags, uint indexed timeStamp);
 
-    constructor() public {}
-
-    /*
-    * @dev
-    * @param name is the string description of your account's name
-    */
-    function addUser(string calldata name) external {
-        require(users[msg.sender].length == 0 && keccak256(abi.encodePacked((users[msg.sender].name))) == keccak256(abi.encodePacked((""))), "user already initialized");
-        
-        users[msg.sender] = User(name, 0);
-        emit LogAddUser(msg.sender, name);
+    constructor() public {
+        owner = msg.sender; // TODO: modify to accept address when factory function implemented
     }
 
     /*
@@ -56,30 +37,19 @@ contract ProofOfExistence is Pausable {
     * @param hashStr
     */
     function addIPFSHash(string calldata description, string calldata hashStr, string calldata tags) external {
-        require(keccak256(abi.encodePacked((users[msg.sender].name))) != keccak256(abi.encodePacked((""))), "user not initialized");
+        require(bytes(description).length > 0, "description missing");
+        require(bytes(hashStr).length > 0, "hashStr missing"); // not exact but can do check on front end as a less secure work around
 
-        uint currLen = (users[msg.sender]).length;
-        users[msg.sender].data[currLen].description = description;
-        users[msg.sender].data[currLen].hashStr = hashStr;
-        users[msg.sender].data[currLen].tags = tags;
-        users[msg.sender].data[currLen].timeStamp = now;
+        DataMap[dataCount] = Data(description, hashStr, tags, block.timestamp);
+        emit LogAddIPFSHash(description, hashStr, tags, block.timestamp);
 
-        (users[msg.sender]).length += 1; // TODO: use safeMath
+        dataCount++; // can use safeMath but unlikely to overflow uint256
     }
 
     /*
     * @dev getting for the IPFS hash for a user
     */
-    function getData(uint currLen) external view returns(string memory description, string memory hashStr, string memory tags, uint timeStamp) {
-        require(currLen <= users[msg.sender].length, "currLen is out of bounds");
-
-        return (users[msg.sender].data[currLen].description, users[msg.sender].data[currLen].hashStr, users[msg.sender].data[currLen].tags, users[msg.sender].data[currLen].timeStamp);
-    }
-
-    /**
-     * @dev Called by only to kill contract and zero out state
-     */
-    function kill() public onlyOwner whenPaused {
-        selfdestruct(msg.sender);
+    function getData(uint DataMapIndex) external view returns(string memory description, string memory hashStr, string memory tags, uint timeStamp) {
+        return (DataMap[DataMapIndex].description, DataMap[DataMapIndex].hashStr, DataMap[DataMapIndex].tags, DataMap[DataMapIndex].timeStamp);
     }
 }

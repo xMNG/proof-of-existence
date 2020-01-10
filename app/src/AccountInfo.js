@@ -1,6 +1,7 @@
 import makeBlockie from "ethereum-blockies-base64";
 import React from "react";
 import { EthAddress } from "rimble-ui";
+import Core from "./Core";
 import NavBar from "./NavBar";
 
 
@@ -17,7 +18,6 @@ export default class AccountInfo extends React.Component {
     }
 
     render() {
-        // const { SimpleStorage } = this.props.drizzleState.contracts;
         let blockie;
         if (this.state.currAccount) blockie = <img src={makeBlockie(this.state.currAccount)} style={{ width: '50px', marginRight: '10px', borderRadius: '5px' }
         } />
@@ -28,6 +28,7 @@ export default class AccountInfo extends React.Component {
                     {blockie}
                     <EthAddress address={this.state.currAccount} maxWidth={256} />
                 </NavBar>
+                <Core drizzle={this.props.drizzle} drizzleState={this.props.drizzleState} address={this.state.currAccount}></Core>
             </React.Fragment>
         )
     }

@@ -2,17 +2,17 @@ import { DrizzleContext } from "drizzle-react";
 import React from "react";
 import AccountInfo from "./AccountInfo";
 import './App.css';
-import Core from './Core';
 import logo from './logo.svg';
 
 
-const ReactSpinner = () => (
+const WrapperComponent = () => (
     <DrizzleContext.Consumer>
         {drizzleContext => {
             const { drizzle, drizzleState, initialized } = drizzleContext;
 
+            // wait to be initialized
             if (!initialized) return "Loading...";
-            // could display the mock site with connect button
+
             return (
                 <React.Fragment>
                     <div className="App">
@@ -22,11 +22,10 @@ const ReactSpinner = () => (
 
                     </div>
                     <AccountInfo drizzle={drizzle} drizzleState={drizzleState} />
-                    <Core drizzle={drizzle} drizzleState={drizzleState}></Core>
                 </React.Fragment>
             )
         }}
     </DrizzleContext.Consumer>
 )
 
-export default ReactSpinner;
+export default WrapperComponent;

@@ -2,6 +2,7 @@ import { DrizzleContext } from "drizzle-react";
 import React from "react";
 import AccountInfo from "./AccountInfo";
 import './App.css';
+import Core from './Core';
 import logo from './logo.svg';
 
 
@@ -21,6 +22,7 @@ const ReactSpinner = () => (
 
                     </div>
                     <AccountInfo drizzle={drizzle} drizzleState={drizzleState} />
+                    <Core drizzle={drizzle} drizzleState={drizzleState}></Core>
                 </React.Fragment>
             )
         }}

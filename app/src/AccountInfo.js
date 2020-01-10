@@ -1,5 +1,8 @@
+import makeBlockie from "ethereum-blockies-base64";
 import React from "react";
-import { Blockie, EthAddress } from "rimble-ui";
+import { EthAddress } from "rimble-ui";
+import NavBar from "./NavBar";
+
 
 export default class AccountInfo extends React.Component {
     state = {
@@ -11,31 +14,22 @@ export default class AccountInfo extends React.Component {
         const { drizzle } = this.props;
         const currAccount = (await drizzle.web3.eth.getAccounts())[0];
         this.setState({ currAccount });
-
-        // console.log(">>>>>: AccountInfo -> componentDidMount -> drizzle", drizzle)
-        // const contract = drizzle.contracts.ProofOfExistence;
-        // console.log(contract)
-        // const dataKey = contract.methods["users"].cacheCall();
-        // console.log(">>>>>: AccountInfo -> componentDidMount -> dataKey", dataKey)
-        // this.setState(dataKey);
     }
-
 
     render() {
         // const { SimpleStorage } = this.props.drizzleState.contracts;
+        let blockie;
+        if (this.state.currAccount) blockie = <img src={makeBlockie(this.state.currAccount)} style={{ width: '50px', marginRight: '10px', borderRadius: '5px' }
+        } />
         console.log(this.state.currAccount)
         return (
             <React.Fragment>
-                {this.state.currAccount ?
-                    <Blockie
-                        opts={{
-                            seed: this.state.currAccount
-                        }}
-                    /> : ''
-
-                }
-                <EthAddress address={this.state.currAccount} maxWidth={256} />
+                <NavBar>
+                    {blockie}
+                    <EthAddress address={this.state.currAccount} maxWidth={256} />
+                </NavBar>
             </React.Fragment>
         )
     }
 }
+

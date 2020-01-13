@@ -21,6 +21,7 @@ function IPFSUpload() {
 
 const UploadFile = (props) => {
     const classes = useStyles();
+    // TODO: get the upload hooked up to IPFS
     return (
         <Container maxWidth='md'>
             <input
@@ -37,7 +38,7 @@ const UploadFile = (props) => {
                 </Button>
             </label>
             <div>
-                <Button onClick={() => props.setIPFSHash('unwerked')}>setIPFSHash!</Button>
+                <Button color="primary" variant="outlined" onClick={() => props.setIPFSHash('unwerked')}>setIPFSHash!</Button>
             </div>
         </Container>
     )

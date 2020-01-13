@@ -64,11 +64,11 @@ const SubmissionForm = () => {
     return (
         <div>
             <p>IPFSHash: {IPFSHash}</p>
-            <Button onClick={() => setIPFSHash(IPFSHash => 'werked')}>setIPFSHash</Button>
+            <Button onClick={() => setIPFSHash('werked')}>setIPFSHash</Button>
 
-            <input type='text' name='description' required></input>
+            {/* <input type='text' name='description' required></input>
             <input type='text' name='tags' required></input>
-            <Button>Upload</Button>
+            <Button>Upload</Button> */}
 
             <Container maxWidth='md'>
                 <div className={classes.root}>

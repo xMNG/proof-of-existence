@@ -1,4 +1,6 @@
 import React from 'react';
+import DisplayData from './DisplayData';
+import SubmissionForm from './SubmissionForm';
 
 class Core extends React.Component {
     constructor() {
@@ -6,34 +8,36 @@ class Core extends React.Component {
         this.state = {
             dataCount: 0,
             dataArr: [],
-            dataKey: null
+            ownerDataKey: null
         };
     }
     componentDidMount() {
         const { drizzle } = this.props;
         const contract = drizzle.contracts.ProofOfExistence;
-        const dataKey = contract.methods['owner'].cacheCall();
-        // const dataKey = contract.methods.owner.cacheCall();
-        this.setState({ dataKey });
+        const ownerDataKey = contract.methods.owner.cacheCall();
+        const dataCountDataKey = contract.methods.dataCount.cacheCall();
+        this.setState({ ownerDataKey, dataCountDataKey });
     }
 
     fetchAllData = () => {
 
     }
 
-    fetchCurrentDataCount = () => {
+    uploadDocument = () => {
 
     }
 
+
     render() {
         const { ProofOfExistence } = this.props.drizzleState.contracts;
-        console.log(">>>>>: Core -> render -> ProofOfExistence", ProofOfExistence)
-        console.log(">>>>>: Core -> render -> this.state.dataKey", this.state.dataKey)
-        const storedOwner = ProofOfExistence.owner[this.state.dataKey];
+        const storedOwner = ProofOfExistence.owner[this.state.ownerDataKey];
+        const dataCount = ProofOfExistence.dataCount[this.state.dataCountDataKey];
+        // TODO: test react-integration
+        // const testData = this.props.drizzleStatus
         return (
             <div>
-                <p>what what in </p>
-                <p>{storedOwner ? storedOwner.value : 'error!'}</p>
+                <DisplayData storedOwner={storedOwner} dataCount={dataCount}></DisplayData>
+                <SubmissionForm></SubmissionForm>
             </div>
         )
     }

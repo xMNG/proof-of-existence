@@ -5,6 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import React from 'react';
+import AddDescriptionAndTags from './AddDescriptionAndTags';
 import UploadFile from './UploadFile';
 
 
@@ -33,9 +34,10 @@ function getSteps() {
 
 const SubmissionForm = () => {
     const classes = useStyles();
-    const [IPFSHash, setIPFSHash] = React.useState('?');
+    const [IPFSHash, setIPFSHash] = React.useState('');
+    const [fileName, setFileName] = React.useState('')
     const [description, setDescription] = React.useState('');
-    const [hashTags, setHashTags] = React.useState([]);
+    const [tags, setTags] = React.useState('');
 
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -51,9 +53,9 @@ const SubmissionForm = () => {
     function getStepContent(step) {
         switch (step) {
             case 0:
-                return <UploadFile setIPFSHash={(input) => setIPFSHash(input)}></UploadFile>
+                return <UploadFile setIPFSHash={(input) => setIPFSHash(input)} setFileName={(input) => setFileName(input)} fileName={fileName} IPFSHash={IPFSHash}></UploadFile>
             case 1:
-                return <h1>step 2</h1>
+                return <AddDescriptionAndTags setDescription={(input) => setDescription(input)} setTags={(input) => setTags(input)} description={description} tags={tags}></AddDescriptionAndTags>
             case 2:
                 return <h1>step 3</h1>
             default:
@@ -64,13 +66,10 @@ const SubmissionForm = () => {
     return (
         <div>
             <p>IPFSHash: {IPFSHash}</p>
-            <Button onClick={() => setIPFSHash('werked')}>setIPFSHash</Button>
-
-            {/* <input type='text' name='description' required></input>
-            <input type='text' name='tags' required></input>
-            <Button>Upload</Button> */}
-
+            <p>description: {description}</p>
+            <p>tags: {tags}</p>
             <Container maxWidth='md'>
+
                 <div className={classes.root}>
                     <Stepper activeStep={activeStep} orientation='horizontal' alternativeLabel>
                         {steps.map((label, index) => {
@@ -79,13 +78,18 @@ const SubmissionForm = () => {
                             </Step>
                         })}
                     </Stepper>
+
                     <Container maxWidth='sm'>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                        <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
                         <Button disabled={activeStep == 0} onClick={handleBack} color="primary" variant="contained" className={classes.Button}>Back</Button>
+                        <Button disabled={activeStep == 2 || !IPFSHash} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
+                        {/* TODO: remove this button below */}
                         <Button disabled={activeStep == 2} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
                     </Container>
+
                 </div>
+
             </Container>
         </div>
     )

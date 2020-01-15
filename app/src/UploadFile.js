@@ -49,13 +49,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const UploadFile = () => {
+const UploadFile = (props) => {
     const classes = useStyles();
-    const [IPFSFile, setIPFSFile] = React.useState(null);
+    const [bufferFile, setbufferFile] = React.useState(null);
 
     const onDrop = useCallback(
         (acceptedFiles) => {
-            setIPFSFile(acceptedFiles)
+            props.setFileName(acceptedFiles[0].name) // set fileName
+
+            const fileReader = new FileReader();
+            fileReader.readAsArrayBuffer(acceptedFiles[0]); // read file as arrayBuffer
+
+            fileReader.onload = async () => { // convert to buffer
+                const fileArrayBuffer = fileReader.result;
+                const fileBuffer = await Buffer.from(fileArrayBuffer);
+                setbufferFile(fileBuffer)
+            }
         },
         [],
     )
@@ -76,48 +85,48 @@ const UploadFile = () => {
         isDragReject
     ]);
 
-    const ipfs = ipfsClient({
-        host: 'ipfs.infura.io',
-        port: '5001',
-        protocol: 'https',
-    });
 
-    async function IPFSUpload() {
-        // TODO: get this hooked up to IPFS and return hash
 
-        if (IPFSFile) {
-            // convert to buffer
-            // const fileReader = new FileReader();
-            // fileReader.readAsArrayBuffer(IPFSFile[0]);
-            // const fileArrayBuffer = fileReader.result;
-            let fileBuffer = await Buffer.from(IPFSFile);
-            console.log(">>>>>: IPFSUpload -> fileBuffer", fileBuffer, typeof fileBuffer)
+    async function IPFSUpload() { // upload to ipfs
+        const ipfs = ipfsClient({
+            host: 'ipfs.infura.io',
+            port: '5001',
+            protocol: 'https',
+        });
+
+        if (bufferFile) {
             // send to infura
-            const results = await ipfs.add(fileBuffer.buffer);
+            const results = await ipfs.add(bufferFile);
             const IPFSHashStr = results[0].hash;
             console.log(
                 '>>>>>: IPFS -> fileReader.onload -> IPFSHashStr',
+                typeof IPFSHashStr,
                 IPFSHashStr,
-                typeof IPFSHashStr
             );
+
+            // set IPFSHash @SubmissionForm.js
+            props.setIPFSHash(IPFSHashStr)
         }
     }
 
     return (
-        <Container maxWidth='md'>
-            <Grid container direction='column' alignContent='space-between'>
-                <div {...getRootProps({ style })}>
-                    <input {...getInputProps()} />
-                    {
-                        isDragActive ?
-                            <p>Drop the files here ...</p> :
-                            <p>Drag 'n' drop some files here, or click to select files</p>
-                    }
-                </div>
-                <span>IPFS File Name: {IPFSFile ? IPFSFile.name : ''}</span>
-                <Button className={classes.Button} disabled={IPFSFile == null} color="primary" variant="outlined" onClick={() => IPFSUpload()}>Upload to IPFS</Button>
-            </Grid>
-        </Container>
+        <div>
+            <Container maxWidth='md'>
+                <Grid container direction='column' alignContent='space-between'>
+                    <div {...getRootProps({ style })}>
+                        <input {...getInputProps()} />
+                        {
+                            isDragActive ?
+                                <p>Drop the files here ...</p> :
+                                <p>Drag 'n' drop some files here, or click to select files</p>
+                        }
+                    </div>
+                    <span>IPFS File Name: {props.fileName ? props.fileName : ''}</span>
+                    <span>IPFS Hash: {props.IPFSHash ? props.IPFSHash : ''}</span>
+                    <Button className={classes.Button} disabled={bufferFile == null} color="primary" variant="outlined" onClick={() => IPFSUpload()}>Upload to IPFS</Button>
+                </Grid>
+            </Container>
+        </div>
     )
 }
 

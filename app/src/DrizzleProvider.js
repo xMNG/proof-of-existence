@@ -5,7 +5,7 @@ import './App.css';
 import logo from './logo.svg';
 
 
-const WrapperComponent = () => (
+const DrizzleProvider = () => (
     <DrizzleContext.Consumer>
         {drizzleContext => {
             const { drizzle, drizzleState, initialized } = drizzleContext;
@@ -28,4 +28,4 @@ const WrapperComponent = () => (
     </DrizzleContext.Consumer>
 )
 
-export default WrapperComponent;
+export default DrizzleProvider;

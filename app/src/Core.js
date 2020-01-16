@@ -8,7 +8,7 @@ class Core extends React.Component {
         this.state = {
             dataCount: 0,
             dataArr: [],
-            ownerDataKey: null
+            ownerDataKey: null,
         };
     }
     componentDidMount() {
@@ -19,15 +19,6 @@ class Core extends React.Component {
         this.setState({ ownerDataKey, dataCountDataKey });
     }
 
-    fetchAllData = () => {
-
-    }
-
-    uploadDocument = () => {
-
-    }
-
-
     render() {
         const { ProofOfExistence } = this.props.drizzleState.contracts;
         const storedOwner = ProofOfExistence.owner[this.state.ownerDataKey];
@@ -37,7 +28,7 @@ class Core extends React.Component {
         return (
             <div>
                 <DisplayData storedOwner={storedOwner} dataCount={dataCount}></DisplayData>
-                <SubmissionForm></SubmissionForm>
+                <SubmissionForm drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></SubmissionForm>
             </div>
         )
     }

@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import React from 'react';
 import AddDescriptionAndTags from './AddDescriptionAndTags';
+import SubmitEthTransaction from './SubmitEthTransaction';
 import UploadFile from './UploadFile';
 
 
@@ -23,16 +24,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
 function getSteps() {
     return ['Upload Your File', 'Enter A Description', 'Enter Hashtags']
 }
 
-
-
-
-
-const SubmissionForm = () => {
+const SubmissionForm = (props) => {
     const classes = useStyles();
     const [IPFSHash, setIPFSHash] = React.useState('');
     const [fileName, setFileName] = React.useState('')
@@ -57,7 +53,7 @@ const SubmissionForm = () => {
             case 1:
                 return <AddDescriptionAndTags setDescription={(input) => setDescription(input)} setTags={(input) => setTags(input)} description={description} tags={tags}></AddDescriptionAndTags>
             case 2:
-                return <h1>step 3</h1>
+                return <SubmitEthTransaction details={{ IPFSHash, fileName, description, tags }} drizzle={props.drizzle} drizzleState={props.drizzleState}></SubmitEthTransaction>
             default:
                 return <h1>Default</h1>
         }
@@ -83,7 +79,8 @@ const SubmissionForm = () => {
                         <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
                         <Button disabled={activeStep == 0} onClick={handleBack} color="primary" variant="contained" className={classes.Button}>Back</Button>
-                        <Button disabled={activeStep == 2 || !IPFSHash} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
+
+                        <Button disabled={activeStep == 2 || (activeStep == 0 && !IPFSHash) || (activeStep == 1 && !description)} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
                         {/* TODO: remove this button below */}
                         <Button disabled={activeStep == 2} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
                     </Container>

@@ -2,8 +2,7 @@ import { Drizzle, generateStore } from "drizzle";
 import { DrizzleContext } from "drizzle-react";
 import React from 'react';
 import ProofOfExistence from "./contracts/ProofOfExistence.json";
-import WrapperComponent from './WrapperComponent.js';
-
+import DrizzleProvider from "./DrizzleProvider";
 
 const options = { contracts: [ProofOfExistence] };
 const drizzleStore = generateStore(options);
@@ -13,7 +12,7 @@ const App = () => {
 
   return (
     <DrizzleContext.Provider drizzle={drizzle}>
-      <WrapperComponent></WrapperComponent>
+      <DrizzleProvider></DrizzleProvider>
     </DrizzleContext.Provider>
   );
 }

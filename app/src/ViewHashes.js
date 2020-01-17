@@ -21,12 +21,16 @@ const ViewHashes = (props) => {
 
     // hacky as shit, but running out of time. To be revisited during truffleU
     if (props.dataCount && hashList.length !== props.dataCount) updateHashList();
+    // 
+    // TODO: fix this display
     return (
         < div >
             <p>hashes</p>
             <p>Owner: {props.storedOwner ? props.storedOwner.value : 'error!'}</p>
             <p>DataCount: {props.dataCount ? props.dataCount.value : 'error!'}</p>
-            {hashList.map((hash, idx) => <DisplayHashInfo key={idx} hash={hash}></DisplayHashInfo>)}
+            {/* TODO: pass in the info without a map */}
+            <DisplayHashInfo hashList={hashList}></DisplayHashInfo>
+            {/* {hashList.map((hash, idx) => <DisplayHashInfo key={idx} hash={hash}></DisplayHashInfo>)} */}
             <button onClick={() => updateHashList()}>Update</button>
         </div >
     )

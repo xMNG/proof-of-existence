@@ -9,7 +9,7 @@ contract ProofOfExistence {
     /*
     * @dev these two state variables hold the data count and store the data structs
     */
-    mapping(uint => Data) DataMap;
+    mapping(uint => Data) public DataMap;
     uint public dataCount;
 
     /*

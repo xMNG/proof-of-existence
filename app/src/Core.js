@@ -1,6 +1,7 @@
 import React from 'react';
 import DisplayData from './DisplayData';
 import SubmissionForm from './SubmissionForm';
+import ViewHashes from './ViewHashes';
 
 class Core extends React.Component {
     constructor() {
@@ -23,12 +24,12 @@ class Core extends React.Component {
         const { ProofOfExistence } = this.props.drizzleState.contracts;
         const storedOwner = ProofOfExistence.owner[this.state.ownerDataKey];
         const dataCount = ProofOfExistence.dataCount[this.state.dataCountDataKey];
-        // TODO: test react-integration
-        // const testData = this.props.drizzleStatus
+
         return (
             <div>
                 <DisplayData storedOwner={storedOwner} dataCount={dataCount}></DisplayData>
                 <SubmissionForm drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></SubmissionForm>
+                <ViewHashes storedOwner={storedOwner} dataCount={dataCount} drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></ViewHashes>
             </div>
         )
     }

@@ -3,7 +3,7 @@ import React from "react";
 import { EthAddress } from "rimble-ui";
 import Core from "./Core";
 import NavBar from "./NavBar";
-
+// TODO: Can remove this component entirely and fetch the account info one component up
 
 export default class AccountInfo extends React.Component {
     state = {

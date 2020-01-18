@@ -20,7 +20,7 @@ const ViewHashes = (props) => {
     }
 
     // hacky as shit, but running out of time. To be revisited during truffleU
-    if (props.dataCount && hashList.length !== props.dataCount) updateHashList();
+    if (props.dataCount && hashList.length !== Number(props.dataCount.value)) updateHashList();
     // 
     // TODO: fix this display
     return (

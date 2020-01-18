@@ -25,10 +25,7 @@ const ViewHashes = (props) => {
     // TODO: fix this display
     return (
         < div >
-            <p>hashes</p>
-            <p>Owner: {props.storedOwner ? props.storedOwner.value : 'error!'}</p>
             <p>DataCount: {props.dataCount ? props.dataCount.value : 'error!'}</p>
-            {/* TODO: pass in the info without a map */}
             <DisplayHashInfo hashList={hashList}></DisplayHashInfo>
             {/* {hashList.map((hash, idx) => <DisplayHashInfo key={idx} hash={hash}></DisplayHashInfo>)} */}
             <button onClick={() => updateHashList()}>Update</button>

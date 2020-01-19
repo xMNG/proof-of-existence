@@ -1,6 +1,7 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
@@ -61,27 +62,33 @@ const SubmissionForm = (props) => {
 
     return (
         <Container maxWidth='md'>
-            <div className={classes.root}>
-                <Stepper activeStep={activeStep} orientation='horizontal' alternativeLabel>
-                    {steps.map((label, index) => {
-                        return <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    })}
-                </Stepper>
+            <Grid container alignItems='center' direction='column'>
 
-                <Container maxWidth='sm'>
-                    <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                <Typography variant={'h5'} component={'span'}>Upload A File</Typography>
 
-                    <Button disabled={activeStep == 0} onClick={handleBack} color="primary" variant="contained" className={classes.Button}>Back</Button>
+                <div className={classes.root}>
+                    <Stepper activeStep={activeStep} orientation='horizontal' alternativeLabel>
+                        {steps.map((label, index) => {
+                            return <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                        })}
+                    </Stepper>
 
-                    <Button disabled={activeStep == 2 || (activeStep == 0 && !IPFSHash) || (activeStep == 1 && !description)} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
-                    {/* TODO: remove this button below */}
-                    <Button disabled={activeStep == 2} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
-                </Container>
+                    <Grid container direction='column' alignItems='center'>
+                        <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
-            </div>
+                        <div>
+                            <Button disabled={activeStep === 0} onClick={handleBack} color="primary" variant="contained" className={classes.Button}>Back</Button>
 
+                            <Button disabled={activeStep === 2 || (activeStep === 0 && !IPFSHash) || (activeStep === 1 && !description)} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
+
+                        </div>
+                    </Grid>
+
+                </div>
+
+            </Grid>
         </Container>
     )
 }

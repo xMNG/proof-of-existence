@@ -1,12 +1,13 @@
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import DisplayHashInfo from './DisplayHashInfo';
 
 const ViewHashes = (props) => {
     const [hashList, setHashList] = React.useState([]);
 
-    React.useEffect(() => {
-        updateHashList();
-    }, [])
+    // React.useEffect(() => {
+    //     updateHashList();
+    // }, [])
 
     const updateHashList = async () => {
         const dataCount = await props.drizzle.contracts.ProofOfExistence.methods.dataCount().call();
@@ -24,11 +25,11 @@ const ViewHashes = (props) => {
     // 
     // TODO: fix this display
     return (
-        < div >
-            <p>DataCount: {props.dataCount ? props.dataCount.value : 'error!'}</p>
+        <div >
+            <Typography variant='h6' style={{ paddingBottom: '10px' }}>Files Uploaded: {props.dataCount ? props.dataCount.value : 'error!'}</Typography>
             <DisplayHashInfo hashList={hashList}></DisplayHashInfo>
             {/* {hashList.map((hash, idx) => <DisplayHashInfo key={idx} hash={hash}></DisplayHashInfo>)} */}
-            <button onClick={() => updateHashList()}>Update</button>
+            {/* <button onClick={() => updateHashList()}>Update</button> */}
         </div >
     )
 }

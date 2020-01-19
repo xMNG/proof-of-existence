@@ -12,6 +12,9 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    tableContainer: {
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+    }
 });
 
 function createData(Description, Tags, Timestamp, Hash) {
@@ -27,7 +30,7 @@ const DisplayHashInfo = (props) => {
     const rows = props.hashList.map(hashInfo => createData(hashInfo.description, hashInfo.tags, hashInfo.timeStamp, hashInfo.hashStr))
     console.log(rows)
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>

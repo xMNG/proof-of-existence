@@ -29,7 +29,7 @@ const AddDescriptionAndTags = (props) => {
     return (
         <div>
 
-            <p>AddDescriptionAndTags.js</p>
+            <p>Add Description And Tags</p>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="standard-basic" label="Description" value={props.description} onChange={handleDescriptionChange} fullWidth /><br></br>
                 <TextField id="standard-basic" label="Tags" value={props.tags} onChange={handleTagChange} fullWidth />

@@ -1,7 +1,5 @@
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
-import DisplayData from './DisplayData';
 import SubmissionForm from './SubmissionForm';
 import ViewHashes from './ViewHashes';
 
@@ -25,8 +23,19 @@ const styles = {
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
         margin: 'auto',
         marginTop: '30px',
+        marginBottom: '30px',
         width: '50%',
         padding: '30px'
+    },
+    hr: {
+        display: 'block',
+        marginTop: '1.5rem',
+        marginBottom: '1.5rem',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderStyle: 'inset',
+        borderWidth: '1px',
+        width: '90%'
     }
 }
 
@@ -60,10 +69,10 @@ class Core extends React.Component {
         return (
             <div style={styles.divContainer}>
                 <Grid container direction='column' justify='space-evenly' alignItems='space-evenly'>
-                    <Card className='card'>
-                        <DisplayData storedOwner={storedOwner} dataCount={dataCount}></DisplayData>
-                    </Card>
                     <SubmissionForm drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></SubmissionForm>
+
+                    <hr style={styles.hr}></hr>
+
                     <ViewHashes storedOwner={storedOwner} dataCount={dataCount} drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></ViewHashes>
                 </Grid>
             </ div>

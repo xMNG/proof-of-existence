@@ -60,35 +60,29 @@ const SubmissionForm = (props) => {
     }
 
     return (
-        <div>
-            <p>IPFSHash: {IPFSHash}</p>
-            <p>description: {description}</p>
-            <p>tags: {tags}</p>
-            <Container maxWidth='md'>
+        <Container maxWidth='md'>
+            <div className={classes.root}>
+                <Stepper activeStep={activeStep} orientation='horizontal' alternativeLabel>
+                    {steps.map((label, index) => {
+                        return <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    })}
+                </Stepper>
 
-                <div className={classes.root}>
-                    <Stepper activeStep={activeStep} orientation='horizontal' alternativeLabel>
-                        {steps.map((label, index) => {
-                            return <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        })}
-                    </Stepper>
+                <Container maxWidth='sm'>
+                    <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
 
-                    <Container maxWidth='sm'>
-                        <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                    <Button disabled={activeStep == 0} onClick={handleBack} color="primary" variant="contained" className={classes.Button}>Back</Button>
 
-                        <Button disabled={activeStep == 0} onClick={handleBack} color="primary" variant="contained" className={classes.Button}>Back</Button>
+                    <Button disabled={activeStep == 2 || (activeStep == 0 && !IPFSHash) || (activeStep == 1 && !description)} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
+                    {/* TODO: remove this button below */}
+                    <Button disabled={activeStep == 2} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
+                </Container>
 
-                        <Button disabled={activeStep == 2 || (activeStep == 0 && !IPFSHash) || (activeStep == 1 && !description)} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
-                        {/* TODO: remove this button below */}
-                        <Button disabled={activeStep == 2} onClick={handleNext} color="primary" variant="contained" className={classes.Button}>Next</Button>
-                    </Container>
+            </div>
 
-                </div>
-
-            </Container>
-        </div>
+        </Container>
     )
 }
 

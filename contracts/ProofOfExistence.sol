@@ -1,11 +1,11 @@
 pragma solidity ^0.5.0;
 
+import './Ownable.sol';
 
-// TODO: factory function!
 
-contract ProofOfExistence {
+contract ProofOfExistence is Ownable {
 
-    address public owner; // TODO: openZeppelin owner role
+    // address public owner; // TODO: openZeppelin owner role
     /*
     * @dev these two state variables hold the data count and store the data structs
     */
@@ -27,8 +27,8 @@ contract ProofOfExistence {
     */
     event LogAddIPFSHash(string indexed description, string hashStr, string indexed tags, uint indexed timeStamp);
 
-    constructor() public {
-        owner = msg.sender; // TODO: modify to accept address when factory function implemented
+    constructor(address _owner) Ownable(_owner) public {
+        // owner = _owner; // TODO: modify to accept address when factory function implemented
     }
 
     /*
@@ -36,7 +36,7 @@ contract ProofOfExistence {
     * @param description
     * @param hashStr
     */
-    function addIPFSHash(string calldata description, string calldata hashStr, string calldata tags) external {
+    function addIPFSHash(string calldata description, string calldata hashStr, string calldata tags) external onlyOwner {
         require(bytes(description).length > 0, "description missing");
         require(bytes(hashStr).length > 0, "hashStr missing"); // not exact but can do check on front end as a less secure work around
 

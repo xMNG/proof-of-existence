@@ -1,4 +1,4 @@
-const poe = artifacts.require("ProofOfExistence");
+const PoeFactory = artifacts.require("PoeFactory");
 
 module.exports = function (deployer) {
     deployer.deploy(poe);

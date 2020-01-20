@@ -1,16 +1,17 @@
 pragma solidity ^0.5.0;
 
-import "./Pausable.sol";
 import "./ProofOfExistence.sol";
 
-contract PoeFactory is Pausable {
+contract PoeFactory {
     mapping(address => address) public userContracts;
+    
+    event LogCreateContract(address indexed msgSender, address indexed createdAddr);
 
     function createContract() external {
         require(userContracts[msg.sender] == address(0), "user already has a contract!");
-        // TODO: second check to make sure contract didn't self destruct
 
-        ProofOfExistence newContract = new ProofOfExistence();
+        ProofOfExistence newContract = new ProofOfExistence(msg.sender);
         userContracts[msg.sender] = address(newContract);
+        emit LogCreateContract(msg.sender, address(newContract));
     }
 }

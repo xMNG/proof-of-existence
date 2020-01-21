@@ -1,4 +1,5 @@
 import { generateStore } from 'drizzle';
+import Web3 from 'web3';
 import ProofOfExistence from '../contracts/ProofOfExistence.json';
 import drizzleOptions from '../drizzleOptions';
 
@@ -11,12 +12,16 @@ const contractEventNotifier = store => next => action => {
     if (action.event && action.event.event == 'LogCreateContract') {
         console.log('create contract event caught!')
         const { createdAddr, msgSender } = action.event.returnValues;
+        console.log(">>>>>: msgSender", msgSender)
+        console.log(">>>>>: createdAddr", createdAddr)
+
         // now dynamically add the contract
-        let contractConfig = {
-            contractName: 'ProofOfExistence',
-            web3Contract: new web3.eth.Contract(ProofOfExistence['abi'], createdAddr)
-        }
-        const events = ['LogAddIPFSHash']
+        let web3 = new Web3('ws://localhost:8545');
+        let contractName = 'ProofOfExistence';
+        let web3Contract = new web3.eth.Contract(ProofOfExistence['abi'], createdAddr)
+        let contractConfig = { contractName, web3Contract }
+        let events = ['LogAddIPFSHash']
+
         store.dispatch({ type: 'ADD_CONTRACT', contractConfig, events })
         console.log('dispatched!')
     }

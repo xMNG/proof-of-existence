@@ -1,10 +1,9 @@
 import PoeFactory from "./contracts/PoeFactory.json";
-import ProofOfExistence from "./contracts/ProofOfExistence.json";
 const options = {
-    contracts: [PoeFactory, ProofOfExistence],
+    contracts: [PoeFactory],
     events: {
         PoeFactory: ['LogCreateContract'],
-        ProofOfExistence: ['LogAddIPFSHash']
+        // ProofOfExistence: ['LogAddIPFSHash']
     }
 };
 

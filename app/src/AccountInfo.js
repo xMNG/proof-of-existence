@@ -60,8 +60,8 @@ export default class AccountInfo extends React.Component {
                 </React.Fragment>
             )
         }
-        console.log('AccountInfo.js >>> this fired!!')
-        console.log('drizzle >>>', this.props.drizzle, this.props.drizzleState)
+        console.log('drizzle >>>', this.props.drizzle)
+        console.log('drizzleState >>>', this.props.drizzleState)
         console.log('contractAddr', this.state.poeContractAddr)
         return <p>worked</p>
         // return (

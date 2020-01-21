@@ -4,7 +4,7 @@ import AccountInfo from "./AccountInfo";
 import './App.css';
 
 
-const DrizzleProvider = () => (
+const DrizzleConsumerContainer = () => (
     <DrizzleContext.Consumer>
         {drizzleContext => {
             const { drizzle, drizzleState, initialized } = drizzleContext;
@@ -21,4 +21,4 @@ const DrizzleProvider = () => (
     </DrizzleContext.Consumer>
 )
 
-export default DrizzleProvider;
+export default DrizzleConsumerContainer;

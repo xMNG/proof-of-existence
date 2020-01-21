@@ -3,11 +3,15 @@ import drizzleOptions from '../drizzleOptions';
 
 const contractEventNotifier = store => next => action => {
     console.log('middleware reached!')
+    console.log('action>>>', action)
 
-    // BLOCK_RECEIVED;
-    if (action.type === 'CONTRACT_SYNCED') {
-        console.log('contract synced!')
+    if (action.event && action.event.event == 'LogCreateContract') {
+        console.log('create contract event caught!')
     }
+    // // BLOCK_RECEIVED;
+    // if (action.type === 'CONTRACT_SYNCED') {
+    //     console.log('contract synced!')
+    // }
     return next(action);
 };
 

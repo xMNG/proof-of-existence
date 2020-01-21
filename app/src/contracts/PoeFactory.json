@@ -1625,12 +1625,12 @@
         }
       },
       "links": {},
-      "address": "0x78dCAE0Bf7214C6a06406F430eB4A11Dd013F791",
-      "transactionHash": "0xa02f9e29c5367991a77c710dd08b635045eec848a38c96ddee239d233c705392"
+      "address": "0x2Be3Dc7452ea06864D58E0989962b022b97B3e77",
+      "transactionHash": "0xf86e7c964eaa106805001bf416e48395676ecbe9dca19ab73ab7ca1141331f8a"
     }
   },
   "schemaVersion": "3.0.20",
-  "updatedAt": "2020-01-21T17:03:56.066Z",
+  "updatedAt": "2020-01-21T21:39:32.476Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

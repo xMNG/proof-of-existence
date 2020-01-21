@@ -1,10 +1,10 @@
-import Migrations from "./contracts/Migrations.json";
 import PoeFactory from "./contracts/PoeFactory.json";
-
+import ProofOfExistence from "./contracts/ProofOfExistence.json";
 const options = {
-    contracts: [Migrations, PoeFactory],
+    contracts: [PoeFactory, ProofOfExistence],
     events: {
-        PoeFactory: ['LogCreateContract']
+        PoeFactory: ['LogCreateContract'],
+        ProofOfExistence: ['LogAddIPFSHash']
     }
 };
 

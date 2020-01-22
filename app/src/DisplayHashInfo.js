@@ -26,7 +26,6 @@ function createData(Description, Tags, Timestamp, Hash) {
 
 const DisplayHashInfo = (props) => {
     const classes = useStyles();
-    // const { description, tags, hashStr, timeStamp } = props.hash
     const rows = props.hashList.map(hashInfo => createData(hashInfo.description, hashInfo.tags, hashInfo.timeStamp, hashInfo.hashStr))
     console.log(rows)
     return (
@@ -41,8 +40,8 @@ const DisplayHashInfo = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.name}>
+                    {rows.map((row, idx) => (
+                        <TableRow key={idx}>
                             <TableCell align="left">{row.Description}</TableCell>
                             <TableCell align="left">{row.Tags}</TableCell>
                             <TableCell align="left">{row.Timestamp}</TableCell>

@@ -1,4 +1,5 @@
-import { DrizzleContext } from "drizzle-react";
+// import { DrizzleContext } from "drizzle-react";
+import { DrizzleContext } from "@drizzle/react-plugin";
 import React from "react";
 import AccountInfo from "./AccountInfo";
 import './App.css';

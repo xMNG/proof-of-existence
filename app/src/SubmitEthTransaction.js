@@ -7,15 +7,13 @@ const SubmitEthTransaction = (props) => {
     console.log(props.drizzleState)
 
     const Upload = async () => {
+        console.log('eth tx button pressed!')
         const { description, tags, IPFSHash } = props.details;
-        const result = props.drizzle.contracts.ProofOfExistence.methods.addIPFSHash.cacheSend(description, IPFSHash, tags, { from: props.drizzleState.accounts[0] })
+        // TODO: cache send revist during TruffleU
+        // const result = props.drizzle.contracts.ProofOfExistence.methods.addIPFSHash.cacheSend(description, IPFSHash, tags, { from: props.drizzleState.accounts[0] })
+        const result = props.drizzle.contracts.ProofOfExistence.methods.addIPFSHash(description, IPFSHash, tags).send({ from: props.drizzleState.accounts[0] })
+
     }
-
-    // const getData = async () => {
-    //     const result = await props.drizzle.contracts.ProofOfExistence.methods.getData(1).call()
-    //     console.log(">>>>>: getData -> result", result)
-
-    // }
 
     return (
         <div>
@@ -27,7 +25,6 @@ const SubmitEthTransaction = (props) => {
             </div>
             <Grid container justify='center'>
                 <MetaMaskButton.Outline onClick={() => Upload()}>Upload to Ethereum</MetaMaskButton.Outline>
-                {/* <Button onClick={() => getData()}>Fetch Data</Button> */}
             </Grid>
 
         </div>

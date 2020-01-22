@@ -1,6 +1,9 @@
 import makeBlockie from "ethereum-blockies-base64";
 import React from "react";
 import { EthAddress } from "rimble-ui";
+import Web3 from 'web3';
+import ProofOfExistence from './contracts/ProofOfExistence.json';
+import Core from "./Core";
 import CreateContract from "./CreateContract";
 import NavBar from "./NavBar";
 
@@ -12,6 +15,7 @@ export default class AccountInfo extends React.Component {
         datakey: null,
         currAccount: '',
         poeContractAddr: '',
+        poeContractReady: false,
     }
 
     async componentDidMount() {
@@ -19,21 +23,25 @@ export default class AccountInfo extends React.Component {
         const currAccount = (await drizzle.web3.eth.getAccounts())[0];
         this.setState({ currAccount });
 
-        // if address, check for contract
-        // console.log('>>>>>', this.props.drizzle.contracts.PoeFactory)
-        // if no contract, click to deploy
-        this.checkForPoeContractAddr();
-
-        // once deployed, dynamically add to drizzle
-
-        // if contract, show the Core component
+        await this.checkForPoeContractAddr();
     }
 
     checkForPoeContractAddr = async () => {
+        // if address, check for contract
         const poeContractAddr = await this.props.drizzle.contracts.PoeFactory.methods.userContracts(this.state.currAccount).call()
-        // console.log(">>>>>: AccountInfo -> checkForPoeContractAddr -> poeContractAddr", poeContractAddr)
+
         if (poeContractAddr != '0x0000000000000000000000000000000000000000') {
             this.setPoeContractAddr(poeContractAddr);
+
+            // TODO: watch the contract
+            let web3 = new Web3(Web3.givenProvider);
+            let contractName = 'ProofOfExistence';
+            let web3Contract = new web3.eth.Contract(ProofOfExistence['abi'], poeContractAddr)
+            let contractConfig = { contractName, web3Contract }
+            let events = ['LogAddIPFSHash']
+            this.props.drizzle.store.dispatch({ type: 'ADD_CONTRACT', contractConfig, events })
+            console.log('dispatched!')
+            this.setState({ poeContractReady: true })
         }
     }
 
@@ -49,7 +57,7 @@ export default class AccountInfo extends React.Component {
         }
 
         // TODO: refactor this to just be the CreateContract or Core
-        if (!this.state.poeContractAddr) {
+        if (!this.state.poeContractAddr && !this.props.drizzle.contracts.ProofOfExistence) {
             return (
                 <React.Fragment>
                     <NavBar>
@@ -63,16 +71,18 @@ export default class AccountInfo extends React.Component {
         console.log('drizzle >>>', this.props.drizzle)
         console.log('drizzleState >>>', this.props.drizzleState)
         console.log('contractAddr', this.state.poeContractAddr)
-        return <p>worked</p>
-        // return (
-        //     <React.Fragment>
-        //         <NavBar>
-        //             {blockie}
-        //             <EthAddress address={this.state.currAccount} maxWidth={256} />
-        //         </NavBar>
-        //         <Core drizzle={this.props.drizzle} drizzleState={this.props.drizzleState} address={this.state.currAccount}></Core>
-        //     </React.Fragment>
-        // )
+        if (this.props.drizzle.contracts.ProofOfExistence) {
+            return (
+                <React.Fragment>
+                    <NavBar>
+                        {blockie}
+                        <EthAddress address={this.state.currAccount} maxWidth={256} />
+                    </NavBar>
+                    <Core drizzle={this.props.drizzle} drizzleState={this.props.drizzleState} address={this.state.currAccount}></Core>
+                </React.Fragment>
+            )
+        }
+        return <p>Loading...</p>
     }
 }
 

@@ -49,26 +49,29 @@ class Core extends React.Component {
         };
     }
 
-
-
     componentDidMount() {
         const { drizzle } = this.props;
-        const contract = drizzle.contracts.ProofOfExistence;
-        const ownerDataKey = contract.methods.owner.cacheCall();
-        const dataCountDataKey = contract.methods.dataCount.cacheCall();
-        this.setState({ ownerDataKey, dataCountDataKey });
+        if (drizzle.contracts.ProofOfExistence) {
+            const contract = drizzle.contracts.ProofOfExistence;
+            const ownerDataKey = contract.methods.owner.cacheCall();
+            const dataCountDataKey = contract.methods.dataCount.cacheCall();
+            this.setState({ ownerDataKey, dataCountDataKey });
+        }
     }
 
     render() {
-        const { ProofOfExistence } = this.props.drizzleState.contracts;
-        const storedOwner = ProofOfExistence.owner[this.state.ownerDataKey];
-        const dataCount = ProofOfExistence.dataCount[this.state.dataCountDataKey];
-
-        //TODO: try a container react ui to center all 
+        let ProofOfExistence;
+        let storedOwner;
+        let dataCount;
+        if (this.props.drizzle.contracts.ProofOfExistence) {
+            ProofOfExistence = this.props.drizzleState.contracts.ProofOfExistence;
+            storedOwner = ProofOfExistence.owner[this.state.ownerDataKey];
+            dataCount = ProofOfExistence.dataCount[this.state.dataCountDataKey];
+        }
 
         return (
             <div style={styles.divContainer}>
-                <Grid container direction='column' justify='space-evenly' alignItems='space-evenly'>
+                <Grid container direction='column' justify='space-evenly' >
                     <SubmissionForm drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></SubmissionForm>
 
                     <hr style={styles.hr}></hr>

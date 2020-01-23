@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
+import { ToastMessage } from 'rimble-ui';
 import SubmissionForm from './SubmissionForm';
 import ViewHashes from './ViewHashes';
 
@@ -71,6 +72,7 @@ class Core extends React.Component {
 
         return (
             <div style={styles.divContainer}>
+                <ToastMessage.Provider ref={node => (window.toastProvider = node)}></ToastMessage.Provider>
                 <Grid container direction='column' justify='space-evenly' >
                     <SubmissionForm drizzle={this.props.drizzle} drizzleState={this.props.drizzleState}></SubmissionForm>
 

@@ -27,7 +27,6 @@ function createData(Description, Tags, Timestamp, Hash) {
 const DisplayHashInfo = (props) => {
     const classes = useStyles();
     const rows = props.hashList.map(hashInfo => createData(hashInfo.description, hashInfo.tags, hashInfo.timeStamp, hashInfo.hashStr))
-    console.log(rows)
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">

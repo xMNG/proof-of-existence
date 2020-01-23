@@ -9,7 +9,6 @@ const ViewHashes = (props) => {
         if (props.drizzle.contracts.ProofOfExistence) {
 
             const dataCount = await props.drizzle.contracts.ProofOfExistence.methods.dataCount().call();
-            console.log('dataCount >>>', dataCount);
             if (dataCount == hashList.length) return
             const tempArr = []
             for (let i = 0; i < dataCount; i++) {

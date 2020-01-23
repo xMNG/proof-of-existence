@@ -1,21 +1,14 @@
-// import { generateStore } from 'drizzle';
 import { generateStore } from "@drizzle/store";
 import Web3 from 'web3';
 import ProofOfExistence from '../contracts/ProofOfExistence.json';
 import drizzleOptions from '../drizzleOptions';
 
 // TODO: experiment with @drizzle-utils getWeb3
-// import getWeb3 from "@drizzle-utils";
 
 const contractEventNotifier = store => next => action => {
-    console.log('middleware reached! - action >>>', action)
 
     if (action.event && action.event.event == 'LogCreateContract') {
-        // console.log('create contract event caught!')
         const { createdAddr, msgSender } = action.event.returnValues;
-        // console.log(">>>>>: msgSender", msgSender)
-        // console.log(">>>>>: createdAddr", createdAddr)
-
         // now dynamically add the contract
         let web3 = new Web3(Web3.givenProvider);
         let contractName = 'ProofOfExistence';
@@ -25,6 +18,17 @@ const contractEventNotifier = store => next => action => {
 
         store.dispatch({ type: 'ADD_CONTRACT', contractConfig, events })
         console.log('contract added: dispatched!')
+        window.toastProvider.addMessage("Personal contract created!", {
+            variant: 'success',
+            colorTheme: 'light'
+        })
+    }
+
+    if (action.event && action.event.event == 'LogAddIPFSHash') {
+        window.toastProvider.addMessage("Added IPFS Hash!", {
+            variant: 'success',
+            colorTheme: 'light'
+        })
     }
     return next(action);
 };

@@ -1,4 +1,20 @@
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import React from 'react';
+
+const styles = {
+    container: {
+        width: '300px',
+        height: '100px',
+        marginTop: '50px',
+        padding: '50px',
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+    },
+    button: {
+        marginTop: '30px'
+    }
+}
 
 const CreateContract = (props) => {
     const [awaitingContract, setAwaitingContract] = React.useState(null);
@@ -14,10 +30,17 @@ const CreateContract = (props) => {
 
     return (
         <React.Fragment>
+            <Grid container direction='row' justify='center'>
+                <div style={styles.container}>
+                    <Grid container direction='column' justify='space-between' alignItems='center'>
+                        <Typography variant='h6'>No Contract Detected!</Typography>
+                        <Button style={styles.button} variant='outlined' color='primary' onClick={() => createPoeContract()}>Create Contract</Button>
+                        {/* <button onClick={() => consoleLogDrizzles()}>Log Drizzle</button> */}
+                    </Grid>
+                </div>
 
-            <p>no contract detected</p>
-            <button onClick={() => createPoeContract()}>Create Contract</button>
-            <button onClick={() => consoleLogDrizzles()}>Log Drizzle</button>
+            </Grid>
+
         </React.Fragment>
     )
 }

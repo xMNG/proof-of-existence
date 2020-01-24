@@ -49,7 +49,7 @@ const Admin = (props) => {
     }
     // withdraw
     const withdraw = () => {
-        props.drizzle.contracts.PoeFactory.methods.withdrawEth.send({ from: props.address })
+        props.drizzle.contracts.PoeFactory.methods.withdrawEth().send({ from: props.address })
     }
 
     return (

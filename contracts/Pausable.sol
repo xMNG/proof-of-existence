@@ -2,8 +2,6 @@ pragma solidity ^0.5.0;
 
 import "./Ownable.sol";
 
-// modified from OpenZeppelin Pausable.sol
-
 /**
  * @dev Contract module which allows children to implement an emergency stop
  * mechanism that can be triggered by an authorized account.
@@ -12,6 +10,8 @@ import "./Ownable.sol";
  * modifiers `whenNotPaused` and `whenPaused`, which can be applied to
  * the functions of your contract. Note that they will not be pausable by
  * simply including this module, only once the modifiers are put in place.
+ *
+ * Attribution: Modified from OpenZeppelin Pausable.sol
  */
 contract Pausable is Ownable {
     /**
@@ -30,7 +30,7 @@ contract Pausable is Ownable {
      * @dev Initializes the contract in unpaused state. Assigns the Pauser role
      * to the deployer.
      */
-    constructor () internal {
+    constructor() internal {
         _paused = false;
     }
 
@@ -58,7 +58,7 @@ contract Pausable is Ownable {
     }
 
     /**
-     * @dev Called by a pauser to pause, triggers stopped state.
+     * @dev Called by a pauser to pause, triggers stopped state. Only owners can pause.
      */
     function pause() public onlyOwner whenNotPaused {
         _paused = true;
@@ -66,7 +66,7 @@ contract Pausable is Ownable {
     }
 
     /**
-     * @dev Called by a pauser to unpause, returns to normal state.
+     * @dev Called by a pauser to unpause, returns to normal state. Only owners can unpause.
      */
     function unpause() public onlyOwner whenPaused {
         _paused = false;

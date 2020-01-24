@@ -8,17 +8,16 @@ pragma solidity ^0.5.0;
  * This module is used through inheritance. It will make available the modifier
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
- * 
+ *
  *  Attribution: Modified from OpenZeppelin
  */
 contract Ownable {
-    address private _owner;
-
+    address payable private _owner;
 
     /**
      * @dev Initializes the contract setting the original sender as the initial owner.
      */
-    constructor (address owner) internal {
+    constructor(address payable owner) internal {
         _owner = owner;
     }
 
@@ -44,5 +43,4 @@ contract Ownable {
         return msg.sender == _owner;
     }
 
- 
 }

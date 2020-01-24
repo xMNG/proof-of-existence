@@ -65,7 +65,7 @@ class Core extends React.Component {
         let storedOwner;
         let dataCount;
         if (this.props.drizzle.contracts.ProofOfExistence) {
-            ProofOfExistence = this.props.drizzleState.contracts.ProofOfExistence;
+            const { ProofOfExistence } = this.props.drizzleState.contracts;
             storedOwner = ProofOfExistence.owner[this.state.ownerDataKey];
             dataCount = ProofOfExistence.dataCount[this.state.dataCountDataKey];
         }

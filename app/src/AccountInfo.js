@@ -2,6 +2,7 @@ import makeBlockie from "ethereum-blockies-base64";
 import React from "react";
 import { EthAddress } from "rimble-ui";
 import Web3 from 'web3';
+import Admin from "./Admin";
 import ProofOfExistence from './contracts/ProofOfExistence.json';
 import Core from "./Core";
 import CreateContract from "./CreateContract";
@@ -12,8 +13,8 @@ import NavBar from "./NavBar";
 
 export default class AccountInfo extends React.Component {
     state = {
-        datakey: null,
         currAccount: '',
+        factoryContractOwner: '',
         poeContractAddr: '',
         poeContractReady: false,
     }
@@ -21,7 +22,10 @@ export default class AccountInfo extends React.Component {
     async componentDidMount() {
         const { drizzle } = this.props;
         const currAccount = (await drizzle.web3.eth.getAccounts())[0];
-        this.setState({ currAccount });
+        const factoryContractOwner = await drizzle.contracts.PoeFactory.methods.owner().call();
+        if (!this.state.currAccount || !this.state.factoryContractOwner) {
+            this.setState({ currAccount, factoryContractOwner });
+        }
 
         await this.checkForPoeContractAddr();
     }
@@ -40,7 +44,7 @@ export default class AccountInfo extends React.Component {
             let contractConfig = { contractName, web3Contract }
             let events = ['LogAddIPFSHash']
             this.props.drizzle.store.dispatch({ type: 'ADD_CONTRACT', contractConfig, events })
-            console.log('dispatched!')
+            // console.log('dispatched!')
             this.setState({ poeContractReady: true })
         }
     }
@@ -56,7 +60,12 @@ export default class AccountInfo extends React.Component {
             } />
         }
 
-        // TODO: refactor this to just be the CreateContract or Core
+        let adminComponent;
+        if (this.state.currAccount == this.state.factoryContractOwner) {
+            adminComponent = <Admin drizzle={this.props.drizzle} drizzleState={this.props.drizzleState} address={this.state.currAccount}></Admin>
+        }
+
+        // TODO: refactor this to just be the CreateContract or Core, and pull NavBar out
         if (!this.state.poeContractAddr && !this.props.drizzle.contracts.ProofOfExistence) {
             return (
                 <React.Fragment>
@@ -70,11 +79,11 @@ export default class AccountInfo extends React.Component {
         }
         console.log('drizzle >>>', this.props.drizzle)
         console.log('drizzleState >>>', this.props.drizzleState)
-        console.log('contractAddr', this.state.poeContractAddr)
         if (this.props.drizzle.contracts.ProofOfExistence) {
             return (
                 <React.Fragment>
                     <NavBar>
+                        {adminComponent}
                         {blockie}
                         <EthAddress address={this.state.currAccount} maxWidth={256} />
                     </NavBar>

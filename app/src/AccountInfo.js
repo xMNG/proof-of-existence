@@ -70,6 +70,7 @@ export default class AccountInfo extends React.Component {
             return (
                 <React.Fragment>
                     <NavBar>
+                        {adminComponent}
                         {blockie}
                         <EthAddress address={this.state.currAccount} maxWidth={256} />
                     </NavBar>

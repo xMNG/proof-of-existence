@@ -61,7 +61,6 @@ class Core extends React.Component {
     }
 
     render() {
-        let ProofOfExistence;
         let storedOwner;
         let dataCount;
         if (this.props.drizzle.contracts.ProofOfExistence) {

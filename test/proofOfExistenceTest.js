@@ -1,70 +1,95 @@
 const ProofOfExistence = artifacts.require("ProofOfExistence");
+let catchRevert = require("./exceptionsHelpers.js").catchRevert;
 
 contract("ProofOfExistence", (accounts) => {
-    owner = accounts[0];
+    const OWNER = accounts[0];
+    const NONOWNER = accounts[1];
 
     let poe;
-    const IPFSHASH = "QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j"
-
     beforeEach(async () => {
-        poe = await ProofOfExistence.new();
+        poe = await ProofOfExistence.new(OWNER); // new deployment
     })
 
     describe("Setup", () => {
-        it("should set a constructor value", async () => {
-            poe = await ProofOfExistence.deployed();
-            let result = await poe.getOwner();
-            assert.equal(result, owner);
+        it("should set an owner in constructor", async () => {
+            let result = await poe.owner();
+            assert.equal(result, OWNER);
+        })
+        it("should have a default dataCount of 0", async () => {
+            const result = await poe.dataCount();
+            assert.equal(result.toString(), 0)
         })
     })
 
-    describe("Add a user", async () => {
+    describe("adds and retrieves file details", async () => {
+        const file1 = {
+            description: 'file name',
+            IPFSHASH: "QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j",
+            tags: '#pleasework'
+        }
+
+        let output;
         beforeEach(async () => {
-            await poe.addUser("mike");
+            output = await poe.addIPFSHash(file1.description, file1.IPFSHASH, file1.tags);
         })
 
-        it("should allow adding a user", async () => {
-            let result = await poe.users(owner);
-            assert.equal(result.name, "mike");
-            assert.equal(result.length, 0);
+        it("allows adding description, tags, IPFS Hash", async () => {
+            // await poe.addIPFSHash(description, IPFSHASH, tags);
+            const result = await poe.getData(0);
+            assert.equal(result.description, file1.description)
+            assert.equal(result.hashStr, file1.IPFSHASH)
+            assert.equal(result.tags, file1.tags)
         })
 
-        it("should not allow adding the same user", async () => {
+        it("requires a description", async () => {
+            await catchRevert(poe.addIPFSHash("", file1.IPFSHASH, file1.tags)); // give it a promise and await it
+
+            // TODO: figure out why this works? two awaits.
+            // try {
+            //     await await poe.addIPFSHash("", IPFSHASH, tags); // wtf? why does this work? awaiting the result of awaited promise? stops the timeout.
+            //     throw null;
+            // } catch (error) {
+            //     assert(error, "VM exception expected, did not get one")
+            // }
+        })
+
+        it("requires a hash string", async () => {
+            await catchRevert(poe.addIPFSHash(file1.description, "", file1.tags))
+        })
+
+        it("does not require tags", async () => {
             try {
-                await poe.addUser("mike");
-                done("should have reverted")
+                await poe.addIPFSHash(file1.description, file1.IPFSHASH)
             } catch (error) {
-                assert.equal(error.reason, 'user already initialized')
+                assert(error, "should not have gotten an error!")
             }
         })
-    })
 
-    describe("Add ipfs hash", async () => {
-        // beforeEach(async () => {
-        //     await poe.addUser("mike");
-        // })
-
-        it("should allow adding an IPFS hash, description, and timestamp", async () => {
-            await poe.addUser("mike");
-
-            await poe.addIPFSHash("generic description", IPFSHASH, "#fakenews #tutorialHell");
-            let result = await poe.getData(0);
-            assert.equal(result.description, "generic description", "description matches")
-            assert.equal(result.hashStr, IPFSHASH, "ifps hash matches")
-            assert.equal(result.tags, "#fakenews #tutorialHell", "tags match")
-
-            // check currLenn incremented
-            let currLen = (await poe.users(owner)).length;
-            assert.equal(currLen, 1, "currLen has incremented");
+        it("increments dataCount after adding file", async () => {
+            const result = await poe.dataCount();
+            assert.equal(result.toString(), 1)
         })
 
-        it("disallows adding IPFS hash before user is added", async () => {
-            try {
-                await poe.addIPFSHash("generic description", IPFSHASH, "#fakenews #tutorialHell");
-                done("should have reverted")
-            } catch (error) {
-                assert.equal(error.reason, 'user not initialized')
+        it("allows for multiple files", async () => {
+            const file2 = {
+                description2: 'file name2',
+                IPFSHASH2: "QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7b222222222222",
+                tags2: '#pleasework2',
             }
+
+            const output = await poe.addIPFSHash(file2.description2, file2.IPFSHASH2, file2.tags2);
+            const result = await poe.getData(1);
+            assert.equal(result.description, file2.description2)
+            assert.equal(result.hashStr, file2.IPFSHASH2)
+            assert.equal(result.tags, file2.tags2)
+        })
+
+        it("checks for emitted LogIPFSHash event", async () => {
+            assert.equal(output.logs[0].event, "LogAddIPFSHash")
+        })
+
+        it("only owner can call addIPFSHash", async () => {
+            await catchRevert(poe.addIPFSHash(file1.description, file1.IPFSHASH, file1.tags, { from: NONOWNER }))
         })
     })
 

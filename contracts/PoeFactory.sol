@@ -11,12 +11,22 @@ contract PoeFactory is Pausable {
     uint256 public price = 0; // initialized to zero, but could require payment in eth to initiate new contract
 
     /*
-    * @dev Event is used to trigger state change on web app
+    * @dev When child contract is created
     */
     event LogCreateContract(
         address indexed msgSender,
         address indexed createdAddr
     );
+
+    /*
+    * @dev When price is changed
+    */
+    event LogPriceChanged(uint256 price);
+
+    /*
+    * dev When withdrawal is made
+    */
+    event LogWithdrawal(address addr, uint256 amt);
 
     /*
     * @dev Constructor passes msg.sender as owner to Ownable through Pausable
@@ -44,12 +54,14 @@ contract PoeFactory is Pausable {
     */
     function setPrice(uint256 _price) public onlyOwner whenNotPaused {
         price = _price;
+        emit LogPriceChanged(price);
     }
 
     /*
     * @dev allows owner to empty the account of eth, if factory function has payment enabled
     */
     function withdrawEth() public onlyOwner whenNotPaused {
+        emit LogWithdrawal(msg.sender, address(this).balance);
         msg.sender.transfer(address(this).balance);
     }
 

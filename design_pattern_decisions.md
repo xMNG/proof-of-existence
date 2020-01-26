@@ -1,6 +1,6 @@
 # Design Pattern Decisions
 
-![ProofOfExistenceUML](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/contractsUML.svg "Contracts UML SVG")
+![ProofOfExistenceUML](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/contractsUML.png "Contracts UML")
 
 There are two main design patterns that I chose between for this dapp. They are:
 

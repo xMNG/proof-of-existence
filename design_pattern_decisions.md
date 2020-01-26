@@ -1,5 +1,7 @@
 # Design Pattern Decisions
 
+![ProofOfExistenceUML](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/contractsUML.svg "Contracts UML SVG")
+
 There are two main design patterns that I chose between for this dapp. They are:
 
 - Use events for cheaper storage 

@@ -7,23 +7,9 @@ There are two main design patterns that I chose between for this dapp. They are:
 - Use events for cheaper storage 
 - Use contract state variables for storage
 
-Here are the pros and cons / trade-offs for each approach:
+There are pros and cons / trade-offs for each approach. For events, we get cheaper storage than storing on contract state (SSTORE), but we must crawl through historical blocks in order to retrieve all pinned ipfs hashes. This would involved repeatedly calling the node or api. Storing the pins on contract state costs more in gas but allows immediate retrieval of the information.
 
-# Events
-
-Pros
-- Cheap storage vs SSTORE
-
-Cons
-- Only last ~256 blocks are checked, any further and will have to search historical blocks which may slow down the app
-- 
-
-# State
-Pros
--
-
-Cons
--
+For this project, I opted for a factory function deployed by an admin, which deploys child contracts that contain the logic for pinning IPFS hashes. This project could have simply stored each user's info and hashes via a struct on a single monolithic contract, but I wanted to separate these concerns because 1) I wanted to try out the factory function design pattern and 2) allow for extensibility through future owner / admin functionality.
 
 
 

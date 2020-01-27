@@ -6,6 +6,8 @@ Uses solidity, javascript, react, truffle, drizzle, ganache, metamask and web3.
 
 Built in ~3 weeks.
 
+![Video Demo](https://github.com/xMNG/proof-of-existence/blob/master/screenshot.png "screenshot")(https://youtu.be/6eiez7QiTvg)
+
 # Links
 
 - [Deployed Addresses on Rinkeby](https://github.com/xMNG/proof-of-existence/blob/master/deployed_addresses.txt "Deployed Addresses on Rinkeby")

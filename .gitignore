@@ -8,3 +8,4 @@ keys.js
 ./app/src/contracts
 app/src/contracts
 package-lock.json
+ipfsTestFiles

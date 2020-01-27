@@ -7,7 +7,7 @@ There are two main design patterns that I chose between for this dapp. They are:
 - Use events for cheaper storage 
 - Use contract state variables for storage
 
-Here are the pros and cons for each approach:
+Here are the pros and cons / trade-offs for each approach:
 
 # Events
 

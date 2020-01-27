@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-    return ['Upload Your File', 'Enter A Description', 'Enter Hashtags']
+    return ['Upload Your File', 'Enter A Description / Tags', 'Submit']
 }
 
 const SubmissionForm = (props) => {

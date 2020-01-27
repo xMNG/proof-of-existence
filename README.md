@@ -1,3 +1,6 @@
+
+![Screenshot](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/screenshot.png "screenshot")
+
 # What is ProofOfExistence ?
 
 ProofOfExistence is a decentralized application that allows users deploy their own Ethereum smart contract, use IPFS to upload their files, and pin the IPFS hash on their contract's state for storage. All in a few clicks.
@@ -6,7 +9,7 @@ Uses solidity, javascript, react, truffle, drizzle, ganache, metamask and web3.
 
 Built in ~3 weeks.
 
-![Video Demo](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/screenshot.png "screenshot")(https://youtu.be/6eiez7QiTvg)
+[Video Demo](https://youtu.be/6eiez7QiTvg)
 
 # Links
 

@@ -6,7 +6,7 @@ Uses solidity, javascript, react, truffle, drizzle, ganache, metamask and web3.
 
 Built in ~3 weeks.
 
-![Video Demo](https://github.com/xMNG/proof-of-existence/blob/master/screenshot.png "screenshot")(https://youtu.be/6eiez7QiTvg)
+![Video Demo](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/screenshot.png "screenshot")(https://youtu.be/6eiez7QiTvg)
 
 # Links
 

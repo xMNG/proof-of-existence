@@ -80,7 +80,7 @@ export default class AccountInfo extends React.Component {
         }
         console.log('drizzle >>>', this.props.drizzle)
         console.log('drizzleState >>>', this.props.drizzleState)
-        if (this.props.drizzle.contracts.ProofOfExistence) {
+        if (this.props.drizzle.contracts.ProofOfExistence.address) {
             return (
                 <React.Fragment>
                     <NavBar>

@@ -34,11 +34,13 @@ Built in ~3 weeks.
 
     ```truffle migrate```
 
-6. In another terminal, cd to app dir and install react app
+6. cd to app dir and install react app
 
     ```cd app && npm install```
 
-7. Run react app, will be served on localhost:3000
+7. Add ganache seed phrase to metamask
+
+8. Run react app, will be served on localhost:3000
 
     ```npm run start```
 

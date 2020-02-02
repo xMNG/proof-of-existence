@@ -40,7 +40,9 @@ Built in ~3 weeks.
 
 7. Add ganache seed phrase to metamask
 
-8. Run react app, will be served on localhost:3000
+8. Change metamask to localhost port 8545
+
+9. Run react app, will be served on localhost:3000
 
     ```npm run start```
 

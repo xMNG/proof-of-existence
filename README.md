@@ -13,7 +13,7 @@ Built in ~3 weeks.
 
 # Links
 
-- [Deployed Addresses on Rinkeby](https://github.com/xMNG/proof-of-existence/blob/master/deployed_addresses.txt "Deployed Addresses on Rinkeby")
+- [Deployed Addresses on Rinkeby](https://github.com/xMNG/proof-of-existence/blob/master/deployed_addresses.txt "Deployed and Verified Contract Addresses on Rinkeby")
 - [Design Pattern Decisions](https://github.com/xMNG/proof-of-existence/blob/master/design_pattern_decisions.md "Design Pattern Decisions")
 - [Avoiding Common Attacks](https://github.com/xMNG/proof-of-existence/blob/master/avoiding_common_attacks.md "Avoiding Common Attacks")
 

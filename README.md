@@ -55,6 +55,63 @@ To run tests, run the command below from the top level directory (not ./app/)
 You should see the test output below:
 ![truffle test output](https://raw.githubusercontent.com/xMNG/proof-of-existence/master/githubImages/test%20specs.png)
 
+# Checklist for ConsenSys Academy Final Project
+
+## General Project Requirements 
+
+:white_check_mark: Project includes a `README.md`
+
+:white_check_mark: Project is a truffle project
+
+:white_check_mark: Contract code is commented
+
+:white_check_mark: Contract inherits a library
+
+## User Interface Requirements
+
+:white_check_mark: Project can run locally
+
+:white_check_mark: App displays current ethereum account
+
+:white_check_mark: Can sign transactions with metamask account
+
+:white_check_mark: App reflects updates to the contract state
+
+## Testing Requirements
+
+:white_check_mark: Tests in js and/or solidity
+
+:white_check_mark: Tests are properly structured
+
+:white_check_mark: All tests pass
+
+## Design Pattern Requirements
+
+:white_check_mark: At leasst one circuit breaker / emergency stop
+
+:white_check_mark: Project includes design_pattern_decisions.md which adequately describe design patterns
+
+:white_check_mark: Project includes avoiding_commmon_attacks.md which adequately describes how contract mitigates two common attacks
+
+## Testnet Deployment
+
+:white_check_mark: Project includes deployed_addresses.txt which describes which testnet and which addresses the contract lives
+
+## Stretch Goals
+
+:white_check_mark: Project uses IPFS
+
+:black_square_button: Upgradeable design pattern
+
+:black_square_button: Contracts written in LLL or Vyper
+
+:black_square_button: App uses Uport  
+
+:black_square_button: App uses oracle
+
+
+
+
 # To Do
 I hope to continue to refine this project during TruffleU in a few key areas:
 1. Emphasis on blockchain specific UI/UX (more toasts, status updates)
@@ -66,3 +123,4 @@ I hope to continue to refine this project during TruffleU in a few key areas:
 7. Deploy app itself to IPFS
 8. Optimistic pinning of IPFS hash to local storage
 9. Some Vyper contracts? Like a troll box.
+

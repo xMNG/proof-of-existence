@@ -25,24 +25,21 @@ Built in ~3 weeks.
 
     ```cd proof-of-existence```
 
-3. npm install
+3. Run ganache (ganache-cli or gui) on port 8545
 
-    ```npm install```
-4. Run ganache (ganache-cli or gui) on port 8545
-
-5. Compile and migrate the scripts
+4. Compile and migrate the scripts
 
     ```truffle migrate```
 
-6. cd to app dir and install react app
+5. cd to app dir and install react app
 
     ```cd app && npm install```
 
-7. Add ganache seed phrase to metamask
+6. Add ganache seed phrase to metamask
 
-8. Change metamask to localhost port 8545
+7. Change metamask to localhost port 8545
 
-9. Run react app, will be served on localhost:3000
+8. Run react app, will be served on localhost:3000
 
     ```npm run start```
 

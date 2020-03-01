@@ -7,7 +7,9 @@ ProofOfExistence is a decentralized application that allows users deploy their o
 
 Uses solidity, javascript, react, truffle, drizzle, ganache, metamask and web3.
 
-Built in ~3 weeks.
+Built in ~3 weeks. 
+
+#built_with_Truffle
 
 [Video Demo](https://youtu.be/6eiez7QiTvg)
 

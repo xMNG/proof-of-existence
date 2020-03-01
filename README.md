@@ -9,7 +9,7 @@ Uses solidity, javascript, react, truffle, drizzle, ganache, metamask and web3.
 
 Built in ~3 weeks. 
 
-![#built_with_Truffle](https://img.shields.io/badge/built%20with-Truffle-blueviolet?style=plastic&logo=Ethereum)
+![#built_with_Truffle](https://img.shields.io/badge/built%20with-Truffle-blueviolet?style=plastic?link=https://www.trufflesuite.com/&link=https://www.trufflesuite.com/&logo=Ethereum)
 
 [Video Demo](https://youtu.be/6eiez7QiTvg)
 
